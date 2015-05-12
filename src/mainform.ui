@@ -1,0 +1,692 @@
+<ui version="4.0" >
+ <author></author>
+ <comment></comment>
+ <exportmacro></exportmacro>
+ <class>mainForm</class>
+ <widget class="QMainWindow" name="mainForm" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>558</width>
+    <height>567</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Contour Vectorizer</string>
+  </property>
+  <widget class="QWidget" name="centralwidget" >
+   <layout class="QVBoxLayout" >
+    <property name="margin" >
+     <number>9</number>
+    </property>
+    <property name="spacing" >
+     <number>6</number>
+    </property>
+    <item>
+     <widget class="QTabWidget" name="mainTabWidget" >
+      <property name="tabShape" >
+       <enum>QTabWidget::Rounded</enum>
+      </property>
+      <widget class="QWidget" name="imageTab" >
+       <attribute name="title" >
+        <string>Image</string>
+       </attribute>
+       <layout class="QVBoxLayout" >
+        <property name="margin" >
+         <number>8</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" >
+          <property name="margin" >
+           <number>0</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QComboBox" name="firFilterComboBox" >
+            <item>
+             <property name="text" >
+              <string>Binomic 3x3</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>Binomic 5x5</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>Box 3x3</string>
+             </property>
+            </item>
+            <item>
+             <property name="text" >
+              <string>Box 5x5</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="applyFIRFilterPushButton" >
+            <property name="text" >
+             <string>Apply FIR filter</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QImageView" name="imageView" />
+        </item>
+        <item>
+         <layout class="QHBoxLayout" >
+          <property name="margin" >
+           <number>0</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="loadImageButton" >
+            <property name="toolTip" >
+             <string>Load a new raster image.</string>
+            </property>
+            <property name="text" >
+             <string>Load image</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="imageInfoLabel" >
+            <property name="text" >
+             <string>no image loaded</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType" >
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>124</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="xResEdit" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+            <property name="sizePolicy" >
+             <sizepolicy>
+              <hsizetype>7</hsizetype>
+              <vsizetype>0</vsizetype>
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="baseSize" >
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="text" >
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label" >
+            <property name="text" >
+             <string>x</string>
+            </property>
+            <property name="textFormat" >
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="yResEdit" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+            <property name="baseSize" >
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="text" >
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="label_2" >
+            <property name="text" >
+             <string>DPI</string>
+            </property>
+            <property name="textFormat" >
+             <enum>Qt::PlainText</enum>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="colorsTab" >
+       <attribute name="title" >
+        <string>Colors</string>
+       </attribute>
+       <layout class="QVBoxLayout" >
+        <property name="margin" >
+         <number>8</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" >
+          <property name="margin" >
+           <number>0</number>
+          </property>
+          <property name="spacing" >
+           <number>6</number>
+          </property>
+          <item>
+           <widget class="QLabel" name="textLabel1" >
+            <property name="text" >
+             <string>Classify colors into</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QSpinBox" name="howManyColorsSpinBox" >
+            <property name="minimum" >
+             <number>2</number>
+            </property>
+            <property name="value" >
+             <number>8</number>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLabel" name="textLabel1_2" >
+            <property name="text" >
+             <string>groups</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="runClassificationButton" >
+            <property name="toolTip" >
+             <string>Run colors classification now.</string>
+            </property>
+            <property name="text" >
+             <string>Now</string>
+            </property>
+            <property name="default" >
+             <bool>true</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType" >
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>51</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="classificationOptionsButton" >
+            <property name="toolTip" >
+             <string>Set the classification options and parameters.</string>
+            </property>
+            <property name="text" >
+             <string>Classification options</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="initialColorsButton" >
+            <property name="toolTip" >
+             <string>Set the initial colors - select random colors options or set the predefined ones.</string>
+            </property>
+            <property name="text" >
+             <string>Initial colors</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType" >
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QLabel" name="learnQualityLabel" >
+            <property name="text" >
+             <string>LQ: -</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="colorButtonsGroup" >
+          <property name="minimumSize" >
+           <size>
+            <width>0</width>
+            <height>100</height>
+           </size>
+          </property>
+          <property name="toolTip" >
+           <string>Select colors in the image by clicking appropriate color buttons then follow to the Thinning tab.</string>
+          </property>
+          <property name="title" >
+           <string>Colors found</string>
+          </property>
+          <layout class="QGridLayout" >
+           <property name="margin" >
+            <number>10</number>
+           </property>
+           <property name="spacing" >
+            <number>6</number>
+           </property>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QImageView" name="classifiedColorsView" />
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="thinningTab" >
+       <attribute name="title" >
+        <string>Thinning</string>
+       </attribute>
+       <layout class="QVBoxLayout" >
+        <property name="margin" >
+         <number>8</number>
+        </property>
+        <property name="spacing" >
+         <number>6</number>
+        </property>
+        <item>
+         <layout class="QHBoxLayout" >
+          <property name="margin" >
+           <number>0</number>
+          </property>
+          <property name="spacing" >
+           <number>2</number>
+          </property>
+          <item>
+           <widget class="QPushButton" name="runErosionButton" >
+            <property name="toolTip" >
+             <string>Perform morphological erosion. Removes border pixels of objects in the image.</string>
+            </property>
+            <property name="text" >
+             <string>Erode</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="runDilationButton" >
+            <property name="toolTip" >
+             <string>Perform morphological dilation. Enlarges objects in the image by addng pixels to its border.</string>
+            </property>
+            <property name="text" >
+             <string>Dilate</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType" >
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>100</width>
+              <height>23</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="runThinningButton" >
+            <property name="toolTip" >
+             <string>Perform Rosenfeld's thinning.</string>
+            </property>
+            <property name="text" >
+             <string>Thin lines</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="runPruningButton" >
+            <property name="toolTip" >
+             <string>Perform morphological pruning - line endpoint removal.</string>
+            </property>
+            <property name="text" >
+             <string>Pruning</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType" >
+             <enum>QSizePolicy::Expanding</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>150</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="bwImageHistoryBack" >
+            <property name="toolTip" >
+             <string>Undo last operation.</string>
+            </property>
+            <property name="text" >
+             <string>Undo</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="bwImageHistoryForward" >
+            <property name="toolTip" >
+             <string>Redo last operation.</string>
+            </property>
+            <property name="text" >
+             <string>Redo</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="bwImageSaveButton" >
+            <property name="toolTip" >
+             <string>Save currently viewed image to a file.</string>
+            </property>
+            <property name="text" >
+             <string>Save B/W image</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <layout class="QHBoxLayout" >
+          <property name="margin" >
+           <number>0</number>
+          </property>
+          <property name="spacing" >
+           <number>2</number>
+          </property>
+          <item>
+           <spacer>
+            <property name="orientation" >
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" >
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
+           <widget class="QPushButton" name="createVectorsButton" >
+            <property name="toolTip" >
+             <string>Finds straight lines in the image. Do "Thin lines" before this.</string>
+            </property>
+            <property name="text" >
+             <string>Create vectors</string>
+            </property>
+            <property name="flat" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="setVectorizationOptionsButton" >
+            <property name="toolTip" >
+             <string>Set joining and speckle size options.</string>
+            </property>
+            <property name="text" >
+             <string>Set vectorization options</string>
+            </property>
+            <property name="flat" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="saveVectorsButton" >
+            <property name="enabled" >
+             <bool>false</bool>
+            </property>
+            <property name="toolTip" >
+             <string>Save current polygons into an .OCD file.</string>
+            </property>
+            <property name="text" >
+             <string>Save vectors</string>
+            </property>
+            <property name="flat" >
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPolygonsView" name="bwImageView" />
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>558</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_Help" >
+    <property name="title" >
+     <string>&amp;Help</string>
+    </property>
+    <addaction name="aboutDialogAction" />
+   </widget>
+   <widget class="QMenu" name="menu_Edit" >
+    <property name="title" >
+     <string>&amp;Edit</string>
+    </property>
+    <addaction name="actionPaste" />
+   </widget>
+   <widget class="QMenu" name="menu_File" >
+    <property name="title" >
+     <string>&amp;File</string>
+    </property>
+    <widget class="QMenu" name="menuLanguage" >
+     <property name="title" >
+      <string>&amp;Language</string>
+     </property>
+    </widget>
+    <addaction name="fileOpenImageAction" />
+    <addaction name="openStatusDataAction" />
+    <addaction name="saveStatusDataAction" />
+    <addaction name="separator" />
+    <addaction name="menuLanguage" />
+    <addaction name="separator" />
+    <addaction name="exitProgramAction" />
+   </widget>
+   <addaction name="menu_File" />
+   <addaction name="menu_Edit" />
+   <addaction name="menu_Help" />
+  </widget>
+  <widget class="QStatusBar" name="statusbar" >
+   <property name="geometry" >
+    <rect>
+     <x>0</x>
+     <y>549</y>
+     <width>558</width>
+     <height>18</height>
+    </rect>
+   </property>
+  </widget>
+  <action name="fileOpenImageAction" >
+   <property name="iconText" >
+    <string>Open image</string>
+   </property>
+   <property name="shortcut" >
+    <string>Alt+I</string>
+   </property>
+  </action>
+  <action name="exitProgramAction" >
+   <property name="iconText" >
+    <string>Exit</string>
+   </property>
+   <property name="shortcut" >
+    <string>Alt+X</string>
+   </property>
+  </action>
+  <action name="openStatusDataAction" >
+   <property name="iconText" >
+    <string>Open status data</string>
+   </property>
+   <property name="shortcut" >
+    <string>Alt+D</string>
+   </property>
+  </action>
+  <action name="saveStatusDataAction" >
+   <property name="iconText" >
+    <string>Save status data</string>
+   </property>
+   <property name="shortcut" >
+    <string>Alt+S</string>
+   </property>
+  </action>
+  <action name="aboutDialogAction" >
+   <property name="iconText" >
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionPaste" >
+   <property name="text" >
+    <string>Paste</string>
+   </property>
+   <property name="toolTip" >
+    <string>Paste the contents of clipboard</string>
+   </property>
+   <property name="statusTip" >
+    <string>Paste the contents of clipboard</string>
+   </property>
+   <property name="whatsThis" >
+    <string/>
+   </property>
+   <property name="shortcut" >
+    <string>Ctrl+V</string>
+   </property>
+  </action>
+ </widget>
+ <pixmapfunction></pixmapfunction>
+ <customwidgets>
+  <customwidget>
+   <class>QPolygonsView</class>
+   <extends>QFrame</extends>
+   <header>QPolygonsView.H</header>
+   <container>0</container>
+   <pixmap></pixmap>
+  </customwidget>
+  <customwidget>
+   <class>QImageView</class>
+   <extends>QFrame</extends>
+   <header>QImageView.H</header>
+   <container>0</container>
+   <pixmap></pixmap>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="cove.qrc" />
+ </resources>
+ <connections>
+  <connection>
+   <sender>xResEdit</sender>
+   <signal>textEdited(QString)</signal>
+   <receiver>yResEdit</receiver>
+   <slot>setText(QString)</slot>
+   <hints>
+    <hint type="sourcelabel" >
+     <x>334</x>
+     <y>491</y>
+    </hint>
+    <hint type="destinationlabel" >
+     <x>429</x>
+     <y>491</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

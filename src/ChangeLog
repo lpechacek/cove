@@ -1,0 +1,159 @@
+2006-04-19  Libor Pechacek  <farco@clnet.cz>
+
+	* "Vectorized lines" symbol has a nice icon.
+
+2006-04-10  Libor Pechacek  <farco@clnet.cz>
+
+	* Improved vectorization.  Joining is better parametrized, distance
+	  matrix computation is faster.
+
+2006-02-10  Libor Pechacek  <farco@clnet.cz>
+
+	* Fixed incorrect endpoint handling in thinning.
+
+2006-02-07  Libor Pechacek  <farco@clnet.cz>
+
+	* Joining of polygons is ordered by distance.  It takes place after
+	  vertex adjustment and before curve generation, i.e. the final joined
+	  lines are smooth curves.
+
+2006-01-23  Libor Pechacek  <farco@clnet.cz>
+
+	* Language selection in File menu.
+
+	* Zoom out in QImageView is limited.
+
+2006-01-19  Libor Pechacek  <farco@clnet.cz>
+
+	* Using Qt 4.1.0, mainForm turned back to QMainWindow again.
+
+	* Using curve aproximation of vectorized polygons.  This required
+	  adapation of Selinger's code for open paths and changes in
+	  QPolygonsView.
+
+2006-01-04  Libor Pechacek  <farco@clnet.cz>
+
+	* Added option to for creating initial colors from image,
+	  ColorsEditForm redesigned.
+
+	* Classification config form did not accept large values in the
+	  E field.  Fixed.
+
+2005-12-31  Libor Pechacek  <farco@clnet.cz>
+
+	* MapColor has different implementations of distance(...) for different
+	  values of p.
+
+	* ClassificationConfigForm accepts inf as value for p.
+
+2005-12-29  Libor Pechacek  <farco@clnet.cz>
+
+	* Implemented FIR filter.
+
+2005-12-26  Libor Pechacek  <farco@clnet.cz>
+
+	* Finished documentation.
+
+2005-12-19  Libor Pechacek  <farco@clnet.cz>
+
+	* Fixed saving of long polygons (>2000 points) to Ocad file.
+
+	* Few UI improvements.
+
+2005-12-17  Libor Pechacek  <farco@clnet.cz>
+
+	* Workaround Qt4's not fully functional QTabWidget::setTabEnabled.
+
+	* Vectorization options and save .OCD file dialog.
+
+2005-12-16  Libor Pechacek  <farco@clnet.cz>
+
+	* Bugfix - initial colors did not work.
+
+	* Added button "Set as initial colors" that sets current recognized
+	  colors as initial.
+
+	* QImageView grays the image out when disabled.
+
+2005-12-15  Libor Pechacek  <farco@clnet.cz>
+
+	* Using libpotrace for vectorization.
+
+	* Bugfixes in zooming (QImageView), zooming of pictures smaller than
+	  the view still doesn't work fine.
+
+	* Bugfixes in OcadFileStructs (all arrays were shorter by one element).
+
+2005-12-11  Libor Pechacek  <farco@clnet.cz>
+
+	* Persistent settings saved into XML file.
+
+	* Implemented basic mathematical morphology.
+
+	* Bugfixes, preparing for release.
+
+2005-06-19  Libor Pechacek  <farco@clnet.cz>
+
+	* Finished porting to Qt 4.0.0-rc1.
+
+	* Implemented Polygons drawing.
+
+	* Using precompiled headers.
+
+2005-06-14  Libor Pechacek  <farco@clnet.cz>
+
+	* Ported to Qt 4.0.0-b2. After Q3CanvasView removal will CoVe be native
+	  Qt4 application.
+
+	* Created UIProgressDialog that integrates QProgressDialog and
+	  ProgressObserver.
+
+2005-03-28  Libor Pechacek  <farco@clnet.cz>
+
+	* Added output into Ocad file.
+
+2005-03-25  Libor Pechacek  <farco@clnet.cz>
+
+	* Bitmap is now vectorized (class Polygons).
+
+2005-03-17  Libor Pechacek  <farco@clnet.cz>
+
+	* New class QImageView, specialization of QScrollView. Replaces the
+	  ugly QImage>QPixmap>QCanvas>QCanvasView chain and has a nice zooming.
+
+2005-03-10  Libor Pechacek  <farco@clnet.cz>
+
+	* Vectorizer has new methods for setting classification parameters.
+
+	* KohonenMap has batch learning, though still not perfectly functional.
+
+	* New form for classification procedure configuration.
+
+2005-03-01  Libor Pechacek  <farco@clnet.cz>
+
+	* Creation of B/W image.  The color buttons group problem is still
+	  unresolved.
+
+	* ClassicAlphaGetter is better parametrized.
+
+	* Added "Cancel" functionality.
+
+2005-02-26  Libor Pechacek  <farco@clnet.cz>
+
+	* Started ChangeLog.
+
+	* Added progress dialog support.
+
+2005-02-24  Libor Pechacek  <farco@clnet.cz>
+
+	* Classified image appears on Colors tab.
+
+	* Color buttons are removed from its group and have numbers on them.
+
+2005-02-23  Libor Pechacek  <farco@clnet.cz>
+
+	* Added creation of indexed bitmap and its view on Colors tab.
+
+2005-02-20  Libor Pechacek  <farco@clnet.cz>
+
+	* Created CVS repository and sources were impoerted.
