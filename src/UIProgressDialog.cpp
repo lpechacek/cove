@@ -36,7 +36,7 @@
  * main window.
  */
 UIProgressDialog::UIProgressDialog(const QString& labelText,
-    const QString& cancelButtonText, QWidget* creator, Qt::WFlags): 
+    const QString& cancelButtonText, QWidget* creator, Qt::WindowFlags):
   QObject(creator), canceled(false),
   infoText(labelText), cancelButton(cancelButtonText)
 {

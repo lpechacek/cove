@@ -59,7 +59,7 @@ class mainForm: public QMainWindow
   QRgb getColorFromImage(const QImage& image);
 
   public:
-  mainForm(QWidget* parent = 0, Qt::WFlags flags = 0);
+  mainForm(QWidget* parent = 0, Qt::WindowFlags flags = 0);
   void loadImage(const QString& newfilename);
   void clearColorButtonsGroup();
   void setColorButtonsGroup(QRgb * colors, int nColors);

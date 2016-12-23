@@ -473,7 +473,7 @@ Morphology::modifyImage(bool* table, bool insert, ProgressObserver* progressObse
     for(int x = 0; x < xSize-1; x++)
     {
       botScanLine[x+1] = !!thinnedImage->pixelIndex(x+1, y+1);
-      p = (p<<1)&0666|(topScanLine[x+1]<<6)|(midScanLine[x+1]<<3)|(botScanLine[x+1]);
+      p = ((p<<1)&0666)|(topScanLine[x+1]<<6)|(midScanLine[x+1]<<3)|(botScanLine[x+1]);
       if(table[p]) 
       {
 	thinnedImage->setPixel(x, y, insert?1:0); // set the pixel
@@ -507,7 +507,7 @@ Morphology::modifyImage(bool* table, bool insert, ProgressObserver* progressObse
     midScanLine[0]<<4|midScanLine[1]<<3;
   for(int x = 0; x < xSize-1 && !cancel; x++)
   {
-    p = (p<<1)&0666|(topScanLine[x+1]<<6)|(midScanLine[x+1]<<3);
+    p = ((p<<1)&0666)|(topScanLine[x+1]<<6)|(midScanLine[x+1]<<3);
     if(table[p]) 
     {
       thinnedImage->setPixel(x, ySize-1, insert?1:0); // set the pixel

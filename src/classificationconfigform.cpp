@@ -54,14 +54,14 @@ QDoubleValidator::State QDoubleInfValidator::validate(QString& input, int& pos) 
 {
   static QString inf = "inf";
   static QString minusinf = "-inf";
-  if(isinf(top()) == 1)
+  if(isinf(top()) && !signbit(top()))
   {
     if(input == inf)
       return Acceptable;
     if(inf.startsWith(input))
       return Intermediate;
   }
-  if(isinf(bottom()) == -1)
+  if(isinf(bottom()) && signbit(top()))
   {
     if(input == minusinf)
       return Acceptable;

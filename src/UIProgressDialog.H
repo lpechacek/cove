@@ -27,7 +27,7 @@ class UIProgressDialog: public QObject, public ProgressObserver
 
   public:
     UIProgressDialog(const QString& labelText,
-	const QString& cancelButtonText, QWidget* creator = 0, Qt::WFlags f = 0); 
+    const QString& cancelButtonText, QWidget* creator = 0, Qt::WindowFlags f = 0);
     virtual ~UIProgressDialog();
     virtual void percentageChanged(int percentage);
     virtual bool getCancelPressed();

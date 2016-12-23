@@ -2,7 +2,7 @@ TEMPLATE	= app
 LANGUAGE	= C++
 
 CONFIG	+= qt warn_on debug precompile_header #profile
-QT += xml
+QT += xml widgets
 
 PRECOMPILED_HEADER = stable.h
 

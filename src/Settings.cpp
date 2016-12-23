@@ -276,7 +276,7 @@ QString Settings::escape(const QString& plain) const
   escaped.reserve(static_cast<int>(plain.length() * 1.1));
   for (int i = 0; i < plain.length(); i++)
   {
-    switch(int c = plain.at(i).toAscii())
+    switch(int c = plain.at(i).toLatin1())
     {
       case '%':
       case ':':

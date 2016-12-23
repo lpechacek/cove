@@ -94,7 +94,7 @@ SequentialPatternGetter::SequentialPatternGetter(const QImage& im, MapColor* mc,
   nChanges(0)
 {
   classifiedImage = QImage(width, height, QImage::Format_Indexed8);
-  classifiedImage.setNumColors(256);
+  classifiedImage.setColorCount(256);
   reset();
 }
 
@@ -138,7 +138,7 @@ const OrganizableElement* SequentialPatternGetter::getPattern()
 }
 
 /*! Get class of the last element got. \sa getPattern */
-const int SequentialPatternGetter::getLastElementClass() const
+int SequentialPatternGetter::getLastElementClass() const
 {
   return classifiedImage.pixelIndex(x, y);
 }

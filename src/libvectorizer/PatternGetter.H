@@ -48,7 +48,7 @@ class SequentialPatternGetter: public BatchPatternGetter,
 	ProgressObserver* progressObserver = 0);
     virtual ~SequentialPatternGetter();
     virtual const OrganizableElement* getPattern();
-    virtual const int getLastElementClass() const;
+    virtual int getLastElementClass() const;
     virtual void setLastElementClass(int classNumber);
     virtual void reset();
     virtual int numberOfChanges();

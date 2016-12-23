@@ -481,7 +481,7 @@ Vectorizer::getClassifiedImage(double *qualityPtr,
     int width = sourceImage.width(), height = sourceImage.height();
     int progressHowOften = (height>100)?height/75:1;
     classifiedImage = QImage(width, height, QImage::Format_Indexed8);
-    classifiedImage.setNumColors(numberOfSourceImageColors);
+    classifiedImage.setColorCount(numberOfSourceImageColors);
 
     OrganizableElement **classes =
       new OrganizableElement *[numberOfSourceImageColors];
@@ -549,7 +549,7 @@ Vectorizer::getBWImage(bool* selectedColors,
   int width = sourceImage.width(), height = sourceImage.height();
   int progressHowOften = (height>100)?height/75:1;
   bwImage = QImage(width, height, QImage::Format_Mono);
-  bwImage.setNumColors(2);
+  bwImage.setColorCount(2);
   bwImage.setColor(0, qRgb(255,255,255));
   bwImage.setColor(1, qRgb(0,0,0));
   bool cancel = false;

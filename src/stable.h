@@ -9,7 +9,6 @@
 #include <iostream>
 #include <algorithm>
 #include <iterator>
-#include <ext/hash_map>
 #include <QAbstractTableModel>
 #include <QAction>
 #include <QApplication>

@@ -393,7 +393,7 @@ void QImageView::mouseMoveEvent(QMouseEvent* event)
 	{ y = dragStartPos.y(); h = -dist.y(); }
 
 	zoomRect = QRect(QPoint(x, y) - iw->pos(), QSize(w, h))
-	  .intersect(iw->rect().adjusted(0, 0, -1, -1));
+      .intersected(iw->rect().adjusted(0, 0, -1, -1));
 	iw->displayRect(zoomRect);
       }
 

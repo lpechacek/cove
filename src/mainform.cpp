@@ -155,7 +155,7 @@ namespace {
 const int mainForm::MESSAGESHOWDELAY = 5000;
 
 //! Constructor initializing the menu, actions and connecting signals from actions
-mainForm::mainForm(QWidget* parent, Qt::WFlags flags):
+mainForm::mainForm(QWidget* parent, Qt::WindowFlags flags):
   QMainWindow(parent, flags), translator(qApp)
 {
   QString lang = settings.getString("language");
@@ -996,7 +996,7 @@ void mainForm::on_saveVectorsButton_clicked()
     {
       if(!QFile(newfilename).exists() && !newfilename.endsWith(".ocd", Qt::CaseInsensitive))
 	newfilename.append(".ocd");
-      OcadFile o(newfilename.toAscii().constData(),
+      OcadFile o(newfilename.toLatin1().constData(),
 	  static_cast<int>(round(imageBitmap.dotsPerMeterX()*0.0254)),
 	  imageFileName.toLocal8Bit().constData());
       o.insertPolygons(*q, float(-bwBitmap.width())/2, float(-bwBitmap.height())/2);
@@ -1031,7 +1031,7 @@ void mainForm::on_bwImageSaveButton_clicked()
     suffix = suffix.mid(2, suffix.size()-3);
     if(!newfilename.endsWith(suffix, Qt::CaseInsensitive))
       newfilename.append(suffix);
-    bwBitmap.save(newfilename, selectedFilter.section(" ", 0, 0).toAscii().constData());
+    bwBitmap.save(newfilename, selectedFilter.section(" ", 0, 0).toLatin1().constData());
     statusBar()->showMessage(tr("Image has been successfully saved into %1")
 	.arg(newfilename), MESSAGESHOWDELAY);
   }

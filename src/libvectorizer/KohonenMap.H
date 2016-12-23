@@ -28,7 +28,7 @@ class KohonenPatternGetter {
 class BatchPatternGetter: public KohonenPatternGetter {
   public:
     virtual ~BatchPatternGetter();
-    virtual const int getLastElementClass() const = 0;
+    virtual int getLastElementClass() const = 0;
     virtual void setLastElementClass(int classNumber) = 0;
     virtual void reset() = 0;
     virtual int numberOfChanges() = 0;

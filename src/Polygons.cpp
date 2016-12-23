@@ -1,6 +1,5 @@
 #ifndef USING_PCH
 #include <algorithm>
-#include <ext/hash_map>
 #include <iterator>
 #include <math.h>
 #include <QImage>
@@ -27,8 +26,6 @@ extern "C"
 }
 
 using namespace std;
-using __gnu_cxx::hash;
-using __gnu_cxx::hash_multimap;
 
 const int
   Polygons::NPOINTS_MAX = 350;
@@ -376,7 +373,7 @@ Polygons::followPath (const QImage & image, int &x, int &y, Path * path)
 	  break;
 	}
 
-      if (canProceed == 1 || firstCycle && canProceed == 2)
+      if (canProceed == 1 || (firstCycle && canProceed == 2))
 	{
 	  x = newx;
 	  y = newy;
@@ -788,17 +785,6 @@ Polygons::dstfun (const dpoint_t * a, const dpoint_t * b, const dpoint_t * c,
     distdirratio * (1 - norm2 / maxdist);
 }
 
-/*namespace __gnu_cxx
-{
-  template <> struct hash <path_t * >
-  {
-    size_t operator  () (path_t * __x) const
-    {
-      return reinterpret_cast < size_t > (__x);
-    }
-  };
-}*/
-
 #define jt2string(j) \
   ((j) == FF ? "FF" : \
  ((j) == FB ? "FB" : \
@@ -1029,9 +1015,6 @@ bool
 
   sort (ops.begin (), ops.end (), greater_weight ());
 
-/*  typedef hash_multimap<path_t*, JOINOPLIST::const_iterator> redirmap_t;
-     redirmap_t redir; */
-
   cancel = false;
   nops = ops.size ();
   cntr = 0;
@@ -1148,10 +1131,10 @@ bool
 		    {
 		      if (!oshead.isEmpty ())
 			{
-			  qDebug ("%s", oshead.toAscii ().constData ());
+              qDebug ("%s", oshead.toLatin1().constData());
 			  oshead = QString ();
 			}
-		      qDebug ("%s", os.toAscii ().constData ());
+              qDebug ("%s", os.toLatin1().constData());
 		    }
 		}
 	    }
@@ -1164,7 +1147,7 @@ bool
 	    }
 	}
 
-      JOINTYPE joinType = endsToType (jeA, jeB);
+      JOINTYPE joinType = endsToType(jeA, jeB);
 
       i->a = ia;
       i->b = ib;
@@ -1175,7 +1158,7 @@ bool
 	  if (JOIN_DEBUG)
 	    {
 	      if (!oshead.isEmpty ())
-		qDebug ("%s", oshead.toAscii ().constData ());
+        qDebug ("%s", oshead.toLatin1().constData ());
 	    }
 	  if (!i->rescheduled)
 	    {
