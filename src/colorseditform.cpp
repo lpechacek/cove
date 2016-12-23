@@ -43,8 +43,8 @@ class ColorsEditingDelegate: public QItemDelegate
     if(event->type() == QEvent::MouseButtonDblClick && index.column() <= 1)
     {
       QVariant v = model->data(model->index(index.row(), 0, index),
-	  Qt::BackgroundColorRole);
-      QColor c = v.value<QColor>();
+          Qt::BackgroundRole);
+      QColor c = v.value<QBrush>().color();
       clr = QColorDialog::getRgba(c.rgb());
       setModelData(0, model, index);
       event->accept();
@@ -105,9 +105,9 @@ QVariant ColorsListModel::data(const QModelIndex& index, int role) const
 {
   if(!colors) return QVariant();
 
-  if(index.column() == 0 && role == Qt::BackgroundColorRole)
+  if(index.column() == 0 && role == Qt::BackgroundRole)
   {
-    return QVariant(QColor(colors[index.row()]));
+    return QVariant(QBrush(QColor(colors[index.row()])));
   } 
   else if(index.column() == 1 && role == Qt::DisplayRole)
   {

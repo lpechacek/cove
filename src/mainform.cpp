@@ -548,14 +548,11 @@ mainForm::setColorButtonsGroup(QRgb* colors, int nColors)
   int i;
   for(i = 0; i < nColors; i++)
   {
-    QColor color(colors[i]);
-    QPushButton *button = new QPushButton(ui.colorButtonsGroup);
+    QPixmap buttonFace(20, 20);
+    buttonFace.fill(QColor(colors[i]));
+    QPushButton *button = new QPushButton(buttonFace, QString(), ui.colorButtonsGroup);
     ui.gridLayout->addWidget(button, i%2, i/2);
     colorButtons[i] = button;
-    QPalette palette;
-    palette.setColor(QPalette::Button, color);
-    palette.setColor(QPalette::Background, color);
-    button->setPalette(palette);
     button->setCheckable(true);
     button->setMaximumSize(30, 30);
     button->setMinimumSize(10, 10);
