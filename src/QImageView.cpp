@@ -286,12 +286,21 @@ QImageView::~QImageView()
   if(iw) delete iw;
 }
 
-//! Currently does nothing, could be used for zooming.
-void QImageView::wheelEvent(QWheelEvent* )
+//! Mouse wheel based zooming.
+void QImageView::wheelEvent(QWheelEvent* event)
 {
-  //int numDegrees = event->delta() / 8;
-  //double numSteps = numDegrees / 15.0f;
-  //zoom(pow(ZoomInFactor, numSteps));
+  static QPoint accumulator;
+  static int stepsize = 8*15*2;
+
+  accumulator += event->angleDelta();
+  if (abs(accumulator.y()) >= stepsize)
+  {
+    int sgn = accumulator.y()/abs(accumulator.y());
+    accumulator.ry() -= stepsize * sgn;
+    double nm = magnification() * pow(2, sgn);
+    if (nm < 32 && nm > 1/32)
+      setMagnification(nm);
+  }
 }
 
 //! Handles mouse click.
