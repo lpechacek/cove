@@ -331,7 +331,7 @@ void QImageView::mousePressEvent(QMouseEvent* event)
 	double mwm = viewport()->width()/iw->width();
 	double mhm = viewport()->height()/iw->height();
 	double nm = magnification()/2;
-	if(nm <= 1 || nm >= mwm || nm >= mhm)
+    if(nm > 1/32 && (nm <= 1 || nm >= mwm || nm >= mhm))
 	  setMagnification(nm);
       }
   }
