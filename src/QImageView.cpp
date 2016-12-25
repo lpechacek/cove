@@ -4,6 +4,7 @@
 #include <QBitmap>
 #include <QBrush>
 #include <QCursor>
+#include <QGuiApplication>
 #include <QImage>
 #include <QPainter>
 #include <QPaintEvent>
@@ -306,54 +307,41 @@ void QImageView::wheelEvent(QWheelEvent* event)
 //! Handles mouse click.
 void QImageView::mousePressEvent(QMouseEvent* event)
 {
-  switch(opMode)
+  if(event->button() != Qt::LeftButton)
+    return;
+
+  if(opMode == ZOOM_IN || (opMode == MOVE &&
+	QGuiApplication::keyboardModifiers() == Qt::ControlModifier))
   {
-    case MOVE:
-      if(event->button() == Qt::LeftButton)
-      {
-	dragStartPos = event->pos();
-	iw->setRealPaintEnabled(false);
-	lastSliderHPos = horizontalScrollBar()->value();
-	lastSliderVPos = verticalScrollBar()->value();
-      }
-      break;
-
-    case ZOOM_IN:
-      if(event->button() == Qt::LeftButton)
-      {
-	dragStartPos = event->pos();
-      }
-      break;
-
-    case ZOOM_OUT:
-      if(event->button() == Qt::LeftButton)
-      {
-	double mwm = viewport()->width()/iw->width();
-	double mhm = viewport()->height()/iw->height();
-	double nm = magnification()/2;
+    dragStartPos = event->pos();
+  }
+  else if(opMode == MOVE)
+  {
+      dragStartPos = event->pos();
+      iw->setRealPaintEnabled(false);
+      lastSliderHPos = horizontalScrollBar()->value();
+      lastSliderVPos = verticalScrollBar()->value();
+  }
+  else if(opMode == ZOOM_OUT)
+  {
+    double mwm = viewport()->width()/iw->width();
+    double mhm = viewport()->height()/iw->height();
+    double nm = magnification()/2;
     if(nm > 1/32 && (nm <= 1 || nm >= mwm || nm >= mhm))
-	  setMagnification(nm);
-      }
+      setMagnification(nm);
   }
 }
 
 //! Handles mouse drag when moving image or zooming in.
 void QImageView::mouseMoveEvent(QMouseEvent* event)
 {
-  switch(opMode)
-  {
-    case MOVE:
-      if(event->buttons() & Qt::LeftButton)
-      {
-	QPoint pixmapOffset = event->pos() - dragStartPos;
-	verticalScrollBar()->setValue(lastSliderVPos-pixmapOffset.y());
-	horizontalScrollBar()->setValue(lastSliderHPos-pixmapOffset.x());
-      }
-      break;
+  if(!(event->buttons() & Qt::LeftButton))
+    return;
 
-    case ZOOM_IN:
-      if(event->buttons() & Qt::LeftButton
-	  && (event->pos() - dragStartPos).manhattanLength() > 5)
+  if(opMode == ZOOM_IN || (opMode == MOVE &&
+	QGuiApplication::keyboardModifiers() == Qt::ControlModifier))
+  {
+      if((event->pos() - dragStartPos).manhattanLength() > 5)
       {
 	dragCurPos = event->pos();
 
@@ -402,63 +390,61 @@ void QImageView::mouseMoveEvent(QMouseEvent* event)
 	{ y = dragStartPos.y(); h = -dist.y(); }
 
 	zoomRect = QRect(QPoint(x, y) - iw->pos(), QSize(w, h))
-      .intersected(iw->rect().adjusted(0, 0, -1, -1));
+	  .intersected(iw->rect().adjusted(0, 0, -1, -1));
 	iw->displayRect(zoomRect);
       }
-
-    case ZOOM_OUT: ;
+  }
+  else if (opMode == MOVE)
+  {
+    QPoint pixmapOffset = event->pos() - dragStartPos;
+    verticalScrollBar()->setValue(lastSliderVPos-pixmapOffset.y());
+    horizontalScrollBar()->setValue(lastSliderHPos-pixmapOffset.x());
   }
 }
 
 //! Handles end-of-drag.
 void QImageView::mouseReleaseEvent(QMouseEvent* event)
 {
-  switch(opMode)
+  if(event->button() != Qt::LeftButton)
+    return;
+
+  if(opMode == ZOOM_IN || (opMode == MOVE &&
+	QGuiApplication::keyboardModifiers() == Qt::ControlModifier))
   {
-    case MOVE:
-      if(event->button() == Qt::LeftButton)
-      {
-	QPoint pixmapOffset = event->pos() - dragStartPos;
-	iw->setRealPaintEnabled(true);
-	verticalScrollBar()->setValue(lastSliderVPos-pixmapOffset.y());
-	horizontalScrollBar()->setValue(lastSliderHPos-pixmapOffset.x());
-      }
-      break;
-
-    case ZOOM_IN:
-      if(event->button() == Qt::LeftButton)
-      {
-	int dx, dy;
-	if((event->pos() - dragStartPos).manhattanLength() > 5
-	    && zoomRect.width() && zoomRect.height())
-	{
-	  double m = viewport()->width()/zoomRect.width(),
-		 n = viewport()->height()/zoomRect.height(),
-		 rmag = m>n?n:m; // minimum of those two
-	  // max possible 2^n magnif. with n integer
-	  double magmul = pow(2, trunc(log(rmag)/log(2)));
-	  if(floor(magmul) == 0.0) magmul = 1;
-	  if(magnification()*magmul > 16) magmul = 16.0/magnification();
-	  rmag = magnification()*magmul;
-	  QPoint zrc = zoomRect.center() + iw->pos();
-	  dx = int(magmul*(zrc.x() - viewport()->size().width()/2));
-	  dy = int(magmul*(zrc.y() - viewport()->size().height()/2));
-	  iw->displayRect(QRect());
-	  setMagnification(rmag);
-	} 
-	else
-	{
-	  int magmul = magnification()<16 ? 2 : 1;
-	  setMagnification(magnification()*magmul);
-	  dx = magmul*(event->pos().x() - viewport()->size().width()/2);
-	  dy = magmul*(event->pos().y() - viewport()->size().height()/2);
-	}
-	verticalScrollBar()->setValue(verticalScrollBar()->value() + dy);
-	horizontalScrollBar()->setValue(horizontalScrollBar()->value() + dx);
-      }
-      break;
-
-    case ZOOM_OUT: ;
+    int dx, dy;
+    if((event->pos() - dragStartPos).manhattanLength() > 5
+	&& zoomRect.width() && zoomRect.height())
+    {
+      double m = viewport()->width()/zoomRect.width(),
+	     n = viewport()->height()/zoomRect.height(),
+	     rmag = m>n?n:m; // minimum of those two
+      // max possible 2^n magnif. with n integer
+      double magmul = pow(2, trunc(log(rmag)/log(2)));
+      if(floor(magmul) == 0.0) magmul = 1;
+      if(magnification()*magmul > 16) magmul = 16.0/magnification();
+      rmag = magnification()*magmul;
+      QPoint zrc = zoomRect.center() + iw->pos();
+      dx = int(magmul*(zrc.x() - viewport()->size().width()/2));
+      dy = int(magmul*(zrc.y() - viewport()->size().height()/2));
+      iw->displayRect(QRect());
+      setMagnification(rmag);
+    }
+    else
+    {
+      int magmul = magnification()<16 ? 2 : 1;
+      setMagnification(magnification()*magmul);
+      dx = magmul*(event->pos().x() - viewport()->size().width()/2);
+      dy = magmul*(event->pos().y() - viewport()->size().height()/2);
+    }
+    verticalScrollBar()->setValue(verticalScrollBar()->value() + dy);
+    horizontalScrollBar()->setValue(horizontalScrollBar()->value() + dx);
+  }
+  else if(opMode == MOVE)
+  {
+    QPoint pixmapOffset = event->pos() - dragStartPos;
+    iw->setRealPaintEnabled(true);
+    verticalScrollBar()->setValue(lastSliderVPos-pixmapOffset.y());
+    horizontalScrollBar()->setValue(lastSliderHPos-pixmapOffset.x());
   }
 }
 
