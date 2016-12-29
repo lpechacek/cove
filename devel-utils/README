@@ -1,0 +1,5 @@
+Various pieces of code that were instrumental during development.
+
+ocddump.cpp - dump Ocad binary files
+optinpoints.cpp - used to determine the optimal value of Polygons::NPOINTS_MAX
+pattgen.cpp - generate the magic tables in Morphology class

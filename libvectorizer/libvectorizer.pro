@@ -1,8 +1,14 @@
-TEMPLATE	= lib
-LANGUAGE	= C++
+#-------------------------------------------------
+#
+# Project created by QtCreator 2016-12-29T19:26:49
+#
+#-------------------------------------------------
 
-CONFIG	+= qt staticlib warn_on release #debug precompile_header profile
+TARGET = libvectorizer
+TEMPLATE = lib
+CONFIG += staticlib
 
+CONFIG += precompile_header
 PRECOMPILED_HEADER = stable.h
 
 HEADERS	+= AlphaGetter.H \
